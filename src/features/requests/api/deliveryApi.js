@@ -53,6 +53,71 @@ export const deliveryApi = {
     }
   },
 
+  // Get delivery data for editing
+  getDeliveryForEdit: async (requestId) => {
+    try {
+      const response = await apiClient.get(`/deliveries/request/${requestId}/edit`);
+      return response;
+    } catch (error) {
+      if (error.status === 404) {
+        throw new Error(`Delivery not found for request ${requestId}`);
+      } else if (error.status === 400) {
+        throw new Error('Request does not have a completed delivery to edit');
+      } else if (error.status >= 500) {
+        throw new Error('Server error occurred while fetching delivery data');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  // Update existing delivery
+  updateDeliveryWithDrivers: async (requestId, deliveryData) => {
+    try {
+      if (!deliveryData.delivery) {
+        throw new Error('Delivery data is required');
+      }
+
+      if (!deliveryData.delivery.actualPickupDateTime) {
+        throw new Error('Actual pickup date and time is required');
+      }
+      
+      if (!deliveryData.delivery.actualTruckCount || deliveryData.delivery.actualTruckCount < 1) {
+        throw new Error('Actual truck count must be at least 1');
+      }
+      
+      if (!deliveryData.delivery.invoiceAmount || deliveryData.delivery.invoiceAmount < 0) {
+        throw new Error('Invoice amount must be a positive number');
+      }
+      
+      if (!deliveryData.drivers || deliveryData.drivers.length === 0) {
+        throw new Error('At least one driver rating is required');
+      }
+      
+      // Validate driver ratings
+      for (const driver of deliveryData.drivers) {
+        if (!driver.ratings || !driver.ratings.overallRating || driver.ratings.overallRating < 1) {
+          throw new Error(`Overall rating is required for all drivers. Please rate all drivers before updating delivery.`);
+        }
+      }
+
+      const response = await apiClient.put(`/deliveries/request/${requestId}`, deliveryData);
+      return response;
+    } catch (error) {
+      if (error.status === 404) {
+        throw new Error(`Delivery not found for request ${requestId}`);
+      } else if (error.status === 400) {
+        throw new Error(error.data?.message || 'Invalid delivery data provided');
+      } else if (error.status >= 500) {
+        throw new Error('Server error occurred while updating delivery');
+      } else if (error.message.includes('Network Error')) {
+        throw new Error('Unable to connect to server. Please check your connection.');
+      } else {
+        throw error;
+      }
+    }
+  },
+
   confirmDeliveryCompletion: async (requestId) => {
     try {
       const response = await apiClient.post(`/deliveries/${requestId}/confirm`);

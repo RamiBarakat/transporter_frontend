@@ -103,8 +103,6 @@ const RatingCriteria = ({ driver, rating }) => {
 
 const RatingCard = ({ rating, index }) => {
   const [expanded, setExpanded] = useState(false);
-
-  console.log(rating);
   const getRatingTrend = () => {
     if (rating.trend > 0) return { icon: TrendingUp, color: 'text-green-500', text: '+' + rating.trend.toFixed(1) };
     if (rating.trend < 0) return { icon: TrendingDown, color: 'text-red-500', text: rating.trend.toFixed(1) };
@@ -288,15 +286,7 @@ export const DriverRatingsHistory = ({
     return text.replace(/\n/g, '<br>');
   };
 
-  console.log('DriverRatingsHistory Debug:', {
-    driver,
-    driverId: driver?.id,
-    driverName: driver?.name,
-    hasAiInsights: !!driver?.aiInsights,
-    aiInsights: driver?.aiInsights,
-    aiInsightsUpdatedAt: driver?.aiInsightsUpdatedAt,
-    fullDriverObject: driver
-  });
+
 
   // Sort ratings based on selected criteria
   const sortedRatings = [...ratings].sort((a, b) => {
@@ -354,18 +344,6 @@ export const DriverRatingsHistory = ({
           </h3>
           <button
             onClick={() => {
-              console.log('Generate Insights button clicked:', {
-                hasDriver: !!driver,
-                driver: driver,
-                driverId: driver?.id,
-                driverIdType: typeof driver?.id,
-                driverName: driver?.name,
-                currentAiInsights: driver?.aiInsights,
-                allRatingsCount: sortedRatings?.length,
-                allRatings: sortedRatings,
-                hasOnGenerateInsights: !!onGenerateInsights
-              });
-              
               if (!driver) {
                 console.error('No driver object available');
                 return;

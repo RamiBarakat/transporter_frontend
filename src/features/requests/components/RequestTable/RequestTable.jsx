@@ -164,11 +164,14 @@ export const RequestTable = ({
       key: 'estimatedCost',
       label: 'Est. Cost',
       sortable: true,
-      render: (value) => (
-        <span className="text-sm font-medium text-gray-900 dark:text-white">
-          ${value?.toLocaleString()}
-        </span>
-      ),
+      render: (value) => {
+        const cost = typeof value === 'object' ? value?.amount || 0 : (Number(value) || 0);
+        return (
+          <span className="text-sm font-medium text-gray-900 dark:text-white">
+            ${cost.toLocaleString()}
+          </span>
+        );
+      },
     },
     {
       key: 'actions',

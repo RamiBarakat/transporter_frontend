@@ -26,7 +26,7 @@ export const useRequests = (filters = {}) => {
     ],
     queryFn: () => requestsApi.getRequests(filters),
     staleTime: 1000 * 60 * 5, // 5 minutes
-    cacheTime: 1000 * 60 * 10, // 10 minutes
+    gcTime: 1000 * 60 * 10, // 10 minutes (renamed from cacheTime in v5)
   });
 };
 
@@ -57,7 +57,7 @@ export const useCreateRequest = () => {
       success(`Request ${newRequest.id} created successfully`);
     },
     onError: (err) => {
-      error('Failed to create request: ' + err.message);
+      error('Failed to create request: ' + (err?.message || 'Unknown error'));
     },
   });
 };
@@ -79,7 +79,7 @@ export const useUpdateRequest = () => {
       success(`Request ${updatedRequest.id} updated successfully`);
     },
     onError: (err) => {
-      error('Failed to update request: ' + err.message);
+      error('Failed to update request: ' + (err?.message || 'Unknown error'));
     },
   });
 };
@@ -101,7 +101,7 @@ export const useDeleteRequest = () => {
       success(`Request ${deletedId} deleted successfully`);
     },
     onError: (err) => {
-      error('Failed to delete request: ' + err.message);
+      error('Failed to delete request: ' + (err?.message || 'Unknown error'));
     },
   });
 };
@@ -123,7 +123,7 @@ export const useLogDeliveryWithDrivers = () => {
 
     },
     onError: (error) => {
-      console.error('Failed to log delivery:', error);
+      console.error('Failed to log delivery:', error?.message || 'Unknown error');
     },
   });
 };
@@ -142,8 +142,50 @@ export const useUpdateDelivery = () => {
       
     },
     onError: (error) => {
-      console.error('Failed to log delivery:', error);
+      console.error('Failed to log delivery:', error?.message || 'Unknown error');
+    },
+  });
+};
 
+// Get delivery data for editing
+export const useDeliveryForEdit = (requestId) => {
+  return useQuery({
+    queryKey: ['delivery', 'edit', requestId],
+    queryFn: () => deliveryApi.getDeliveryForEdit(requestId),
+    enabled: !!requestId,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+};
+
+// Update delivery with drivers mutation
+export const useUpdateDeliveryWithDrivers = () => {
+  const queryClient = useQueryClient();
+  const { addNotification } = useNotificationStore();
+
+  return useMutation({
+    mutationFn: ({ requestId, deliveryData }) => 
+      deliveryApi.updateDeliveryWithDrivers(requestId, deliveryData),
+    onSuccess: (result, { requestId }) => {
+      // Invalidate relevant queries
+      queryClient.invalidateQueries({ queryKey: ['requests', 'paginated-list'] });
+      queryClient.invalidateQueries({ queryKey: ['request', requestId] });
+      queryClient.invalidateQueries({ queryKey: ['delivery', 'edit', requestId] });
+      
+      // Invalidate driver queries to update their stats
+      queryClient.invalidateQueries({ queryKey: ['drivers'] });
+
+      addNotification({
+        type: 'success',
+        title: 'Delivery Updated Successfully',
+        message: `Delivery details and driver ratings have been updated.`,
+      });
+    },
+    onError: (error) => {
+      addNotification({
+        type: 'error',
+        title: 'Failed to Update Delivery',
+        message: error.message || 'An unexpected error occurred while updating the delivery.',
+      });
     },
   });
 };

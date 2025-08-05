@@ -8,6 +8,7 @@ const RequestDetailPage = () => {
     error,
     refetch,
     performanceMetrics,
+    deliveryDrivers,
     permissions,
     goBack,
   } = useRequestDetailPage();
@@ -18,6 +19,7 @@ const RequestDetailPage = () => {
       isLoading={isLoading}
       error={error}
       performanceMetrics={performanceMetrics}
+      deliveryDrivers={deliveryDrivers}
       permissions={permissions}
       onRefresh={refetch}
       goBack={goBack}

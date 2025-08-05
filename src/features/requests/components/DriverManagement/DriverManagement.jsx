@@ -11,7 +11,8 @@ export const DriverManagement = ({
   selectedDrivers = [], 
   onUpdateDrivers,
   className = "",
-  required = true
+  required = true,
+  editMode = false
 }) => {
   const [showDriverSearch, setShowDriverSearch] = useState(false);
   const [showDriverForm, setShowDriverForm] = useState(false);
@@ -55,12 +56,15 @@ export const DriverManagement = ({
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Add existing drivers (in-house or transporter) or create new transporter drivers
+            {editMode 
+              ? 'Update driver ratings and feedback' 
+              : 'Add existing drivers (in-house or transporter) or create new transporter drivers'
+            }
             {required && <span className="text-red-500 ml-1">*</span>}
           </p>
         </div>
         <div className="text-sm text-gray-500 dark:text-gray-400">
-          {selectedDrivers.length} driver{selectedDrivers.length !== 1 ? 's' : ''} added
+          {selectedDrivers.length} driver{selectedDrivers.length !== 1 ? 's' : ''} {editMode ? 'to update' : 'added'}
         </div>
       </div>
 
@@ -78,23 +82,27 @@ export const DriverManagement = ({
         </motion.div>
       )}
 
-      {/* Action Buttons */}
-      <div className="flex gap-3">
-        <button
-          onClick={() => setShowDriverSearch(true)}
-          className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-        >
-          <Users className="w-4 h-4" />
-          Add Existing Driver
-        </button>
-        <button
-          onClick={() => setShowDriverForm(true)}
-          className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          Add New Transporter
-        </button>
-      </div>
+      {/* Action Buttons - only show when not in edit mode */}
+      {!editMode && (
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => setShowDriverSearch(true)}
+            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+          >
+            <Users className="w-4 h-4" />
+            Add Existing Driver
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowDriverForm(true)}
+            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            Add New Transporter
+          </button>
+        </div>
+      )}
 
       {/* Driver Search Modal */}
       <AnimatePresence>
@@ -149,6 +157,7 @@ export const DriverManagement = ({
                 driver={driver}
                 onRemove={handleRemoveDriver}
                 onRatingChange={handleUpdateDriverRating}
+                showRemoveButton={true}
                 index={index}
               />
             ))}
@@ -161,27 +170,34 @@ export const DriverManagement = ({
         <div className="text-center py-8 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl">
           <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
           <h4 className="font-medium text-gray-900 dark:text-white mb-2">
-            No drivers added yet
+            {editMode ? 'No driver ratings found' : 'No drivers added yet'}
           </h4>
           <p className="text-gray-600 dark:text-gray-400 mb-4">
-            Add drivers who participated in this delivery to rate their performance.
+            {editMode 
+              ? 'This delivery doesn\'t have any driver ratings to edit.' 
+              : 'Add drivers who participated in this delivery to rate their performance.'
+            }
           </p>
-          <div className="flex flex-col sm:flex-row gap-2 justify-center">
-            <button
-              onClick={() => setShowDriverSearch(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-            >
-              <Users className="w-4 h-4" />
-              Add Existing Driver
-            </button>
-            <button
-              onClick={() => setShowDriverForm(true)}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-            >
-              <Plus className="w-4 h-4" />
-              Add New Transporter
-            </button>
-          </div>
+          {!editMode && (
+            <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              <button
+                type="button"
+                onClick={() => setShowDriverSearch(true)}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+              >
+                <Users className="w-4 h-4" />
+                Add Existing Driver
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowDriverForm(true)}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                <Plus className="w-4 h-4" />
+                Add New Transporter
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

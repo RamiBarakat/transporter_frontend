@@ -44,13 +44,7 @@ const useDriverListPage = () => {
     enabled: !!selectedDriver?.id && showDetailModal
   });
 
-  console.log('Driver Data Debug:', {
-    selectedDriver,
-    selectedDriverId: selectedDriver?.id,
-    selectedDriverType: typeof selectedDriver?.id,
-    showDetailModal,
-    hasSelectedDriver: !!selectedDriver
-  });
+
 
   // Extract drivers from response (handle wrapped response)
   const allDrivers = useMemo(() => {
@@ -205,17 +199,7 @@ const useDriverListPage = () => {
 
   const handleGenerateInsights = async (driver, ratings) => {
     try {
-      console.log('Generating insights - Input validation:', {
-        driver: driver,
-        driverId: driver?.id,
-        driverIdType: typeof driver?.id,
-        driverName: driver?.name,
-        hasDriver: !!driver,
-        ratingsCount: ratings?.length,
-        ratingsData: ratings,
-        selectedDriverFromState: selectedDriver,
-        selectedDriverIdFromState: selectedDriver?.id
-      });
+
 
       // Validate inputs
       if (!driver) {

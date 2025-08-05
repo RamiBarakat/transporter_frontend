@@ -37,7 +37,7 @@ export const requestsApi = {
       // Return the full response so pagination info can be extracted
       return response;
     } catch (error) {
-      console.error('Error fetching requests:', error);
+      console.error('Error fetching requests:', error?.message || 'Unknown error');
       throw error;
     }
   },
@@ -49,7 +49,7 @@ export const requestsApi = {
       const response = await apiClient.get(`/requests/${id}`);
       return response.data || response; // Adjust based on your backend response
     } catch (error) {
-      console.error('Error fetching request:', error);
+      console.error('Error fetching request:', error?.message || 'Unknown error');
       throw error;
     }
   },
@@ -61,7 +61,7 @@ export const requestsApi = {
       const response = await apiClient.post('/requests', requestData);
       return response.data || response;
     } catch (error) {
-      console.error('Error creating request:', error);
+      console.error('Error creating request:', error?.message || 'Unknown error');
       throw error;
     }
   },
@@ -73,7 +73,7 @@ export const requestsApi = {
       const response = await apiClient.put(`/requests/${id}`, updates);
       return response.data || response;
     } catch (error) {
-      console.error('Error updating request:', error);
+      console.error('Error updating request:', error?.message || 'Unknown error');
       throw error;
     }
   },
@@ -85,7 +85,7 @@ export const requestsApi = {
       const response = await apiClient.delete(`/requests/${id}`);
       return response.data || response;
     } catch (error) {
-      console.error('Error deleting request:', error);
+      console.error('Error deleting request:', error?.message || 'Unknown error');
       throw error;
     }
   },

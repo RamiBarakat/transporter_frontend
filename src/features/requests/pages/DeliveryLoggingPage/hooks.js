@@ -94,7 +94,6 @@ export const useDeliveryLoggingPage = () => {
   };
 
   const onSubmit = async (formData) => {
-    console.log('onSubmit called with formData:', formData);
     // Validate drivers
     const driverValidation = validateDrivers();
     if (!driverValidation.valid) {
@@ -135,12 +134,12 @@ export const useDeliveryLoggingPage = () => {
 
       // Success - clear drivers and navigate
       clearSelectedDrivers();
-      navigate(`/requests/${id}`, { 
+      navigate(`/requests`, { 
         state: { message: 'Delivery logged and confirmed successfully!' } 
       });
     } catch (error) {
       // Error is already handled by the mutation's onError
-      console.error('Failed to log delivery:', error);
+      console.error('Failed to log delivery:', error?.message || 'Unknown error');
     }
   };
 

@@ -10,8 +10,8 @@ export const QueryProvider = ({ children }) => {
           queries: {
             // Stale time: 5 minutes
             staleTime: 1000 * 60 * 5,
-            // Cache time: 10 minutes
-            cacheTime: 1000 * 60 * 10,
+            // Garbage collection time: 10 minutes (renamed from cacheTime in v5)
+            gcTime: 1000 * 60 * 10,
             retry: 1,
           },
           mutations: {

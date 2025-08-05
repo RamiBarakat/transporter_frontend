@@ -97,7 +97,7 @@ export const DriverForm = ({ onSaveDriver, onCancel, className = "" }) => {
       onCancel(); // Close the modal after successful submission
     } catch (error) {
       // Error is handled by the mutation's onError callback
-      console.error('Failed to create driver:', error);
+      console.error('Failed to create driver:', error?.message || 'Unknown error');
     }
   };
 

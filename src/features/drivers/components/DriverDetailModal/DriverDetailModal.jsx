@@ -180,7 +180,7 @@ export const DriverDetailModal = ({
       await onUpdate(driver.id, data);
       setIsEditing(false);
     } catch (error) {
-      console.error('Failed to update driver:', error);
+      console.error('Failed to update driver:', error?.message || 'Unknown error');
     }
   };
 

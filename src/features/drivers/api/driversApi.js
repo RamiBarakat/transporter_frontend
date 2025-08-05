@@ -212,23 +212,13 @@ export const driversApi = {
         throw new Error(`Invalid driver ID: ${driverId}`);
       }
 
-      console.log('AI Insights API Call:', {
-        driverId,
-        driverIdType: typeof driverId,
-        endpoint: `/drivers/${driverId}/insights`,
-        ratingsData,
-        ratingsCount: ratingsData?.length
-      });
+
       
       const response = await apiClient.post(`/drivers/${driverId}/insights`, {
         ratingsData
       });
       
-      console.log('AI Insights API Response:', {
-        status: response.status,
-        data: response.data,
-        fullResponse: response
-      });
+
       
       return response;
     } catch (error) {

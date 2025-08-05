@@ -142,17 +142,15 @@ export const useCreateRequestPage = () => {
       };
 
       if (isEditMode) {
-        console.log('Updating request:', id, requestData);
         await updateRequestMutation.mutateAsync({ id, updates: requestData });
       } else {
-        console.log('Creating new request:', requestData);
         await createRequestMutation.mutateAsync(requestData);
       }
       
       navigate('/requests');
       
     } catch (error) {
-      console.error(`Error ${isEditMode ? 'updating' : 'creating'} request:`, error);
+      console.error(`Error ${isEditMode ? 'updating' : 'creating'} request:`, error?.message || 'Unknown error');
       alert(`Failed to ${isEditMode ? 'update' : 'create'} request. Please try again.`);
     }
   };

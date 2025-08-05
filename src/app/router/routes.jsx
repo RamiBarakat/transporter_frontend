@@ -11,6 +11,7 @@ const RequestListPage = lazy(() => import('@/features/requests/pages/RequestList
 const CreateRequestPage = lazy(() => import('@/features/requests/pages/CreateRequestPage'));
 const RequestDetailPage = lazy(() => import('@/features/requests/pages/RequestDetailPage'));
 const DeliveryLoggingPage = lazy(() => import('@/features/requests/pages/DeliveryLoggingPage'));
+const DeliveryEditPage = lazy(() => import('@/features/requests/pages/DeliveryEditPage'));
 const DeliveryListPage = lazy(() => import('@/features/deliveries/pages/DeliveryListPage'));
 const DriverListPage = lazy(() => import('@/features/drivers/pages/DriverListPage'));
 const AnalyticsPage = lazy(() => import('@/features/analytics/pages/AnalyticsPage'));
@@ -82,7 +83,7 @@ export const router = createBrowserRouter([
             path: ':id/delivery/edit',
             element: (
               <LazyWrapper>
-                <DeliveryLoggingPage />
+                <DeliveryEditPage />
               </LazyWrapper>
             ),
           },

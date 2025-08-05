@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+//only search exists now, keep for future
 export const useRequestsStore = create()(
   persist(
     (set, get) => ({

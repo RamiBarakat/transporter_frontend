@@ -43,7 +43,7 @@ export const useRequestListPage = () => {
     
     // No fallback - backend should always provide pagination metadata
     return null;
-  }, [data, currentPage, itemsPerPage, requests.length]);
+  }, [data, currentPage, itemsPerPage]);
 
   // Pagination handlers
   const handlePageChange = (page) => {

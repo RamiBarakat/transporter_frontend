@@ -106,7 +106,7 @@ export const AddDriverModal = ({
       reset();
       setDriverType('transporter');
     } catch (error) {
-      console.error('Failed to create driver:', error);
+      console.error('Failed to create driver:', error?.message || 'Unknown error');
     }
   };
 

@@ -20,6 +20,7 @@ export const RequestDetailPageUI = ({
   isLoading,
   error,
   permissions,
+  deliveryDrivers = [],
   goBack,
 }) => {
   if (isLoading) {
@@ -207,6 +208,102 @@ export const RequestDetailPageUI = ({
                 </div>
               </div>
             </div>
+
+            {/* Drivers Section */}
+            {deliveryDrivers && deliveryDrivers.length > 0 && (
+              <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <h4 className="font-medium text-gray-900 dark:text-white mb-4">Delivery Drivers</h4>
+                <div className="space-y-4">
+                  {deliveryDrivers.map((driverData, index) => (
+                    <div
+                      key={driverData.ratingId || index}
+                      className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600"
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <h5 className="font-medium text-gray-900 dark:text-white">
+                            {driverData.driver.name}
+                          </h5>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">
+                            {driverData.driver.type === 'in_house' ? 'In-House' : 'Transporter'}
+                          </p>
+                          {driverData.driver.transportCompany && (
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                              {driverData.driver.transportCompany}
+                            </p>
+                          )}
+                        </div>
+                        <div className="text-right">
+                          <div className="flex items-center gap-1">
+                            <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                              {driverData.ratings.overallRating || 0}
+                            </span>
+                            <span className="text-sm text-gray-500">/5</span>
+                          </div>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">Overall</p>
+                        </div>
+                      </div>
+                      
+                      {/* Rating breakdown */}
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600 dark:text-gray-400">Punctuality</span>
+                          <span className="text-gray-900 dark:text-white">
+                            {driverData.ratings.punctuality || 0}/5
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600 dark:text-gray-400">Professional</span>
+                          <span className="text-gray-900 dark:text-white">
+                            {driverData.ratings.professionalism || 0}/5
+                          </span>
+                        </div>
+                        {driverData.driver.type === 'transporter' ? (
+                          <>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Quality</span>
+                              <span className="text-gray-900 dark:text-white">
+                                {driverData.ratings.deliveryQuality || 0}/5
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Communication</span>
+                              <span className="text-gray-900 dark:text-white">
+                                {driverData.ratings.communication || 0}/5
+                              </span>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Safety</span>
+                              <span className="text-gray-900 dark:text-white">
+                                {driverData.ratings.safety || 0}/5
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Compliance</span>
+                              <span className="text-gray-900 dark:text-white">
+                                {driverData.ratings.policyCompliance || 0}/5
+                              </span>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      
+                      {/* Comments if available */}
+                      {driverData.ratings.comments && (
+                        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                            "{driverData.ratings.comments}"
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className="bg-gray-50 dark:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-700 p-6">

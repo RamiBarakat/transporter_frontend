@@ -1,15 +1,15 @@
-import { useRequest } from '../../api';
+import { useRequest, useDeliveryForEdit } from '../../api';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 export const useRequestDetailPage = () => {
   const { id } = useParams();
   const { data: request, isLoading, error, refetch } = useRequest(id);
+  const { data: deliveryData } = useDeliveryForEdit(request?.status === 'completed' ? id : null);
   const navigate = useNavigate();
 
+  const deliveryDrivers = deliveryData?.data?.drivers || [];
 
-  console.log(request, "here");
-  console.log(request?.delivery, "here");
   const performanceMetrics = request?.delivery ? {
     truckVariance: {
       planned: request.truckCount,
@@ -44,6 +44,7 @@ export const useRequestDetailPage = () => {
     error,
     refetch,
     performanceMetrics,
+    deliveryDrivers,
     permissions: {
       canEditRequest,
       canEditDelivery,
