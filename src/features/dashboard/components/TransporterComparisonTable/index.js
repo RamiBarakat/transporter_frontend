@@ -1,0 +1,1 @@
+export { TransporterComparisonTable } from './TransporterComparisonTable';
