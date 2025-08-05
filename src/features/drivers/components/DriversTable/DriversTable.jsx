@@ -191,13 +191,6 @@ const DriversTableRow = ({ driver, onView, onEdit, onDelete, index }) => {
           >
             <Edit className="w-4 h-4" />
           </button>
-          <button
-            onClick={() => onDelete(driver)}
-            className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-            title="Delete Driver"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
         </div>
       </td>
     </motion.tr>
