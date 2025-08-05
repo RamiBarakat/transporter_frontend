@@ -85,11 +85,7 @@ export const DriverCard = ({
                 <>
                   <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                     <User className="w-4 h-4" />
-                    <span>Employee ID: {driver.employeeId}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                    <Building className="w-4 h-4" />
-                    <span>{driver.department}</span>
+                    <span>Employee ID: {driver.id}</span>
                   </div>
                 </>
               )}

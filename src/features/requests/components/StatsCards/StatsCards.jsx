@@ -9,7 +9,7 @@ const StatCard = ({ title, value, icon: Icon, color, change, index }) => {
     danger: 'text-danger-600 bg-danger-50 dark:bg-danger-900/20',
     gray: 'text-gray-600 bg-gray-50 dark:bg-gray-900/20',
   };
-
+  console.log(value);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

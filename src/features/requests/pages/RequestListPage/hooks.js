@@ -37,7 +37,9 @@ export const useRequestListPage = () => {
         totalItems: pagination.totalItems || 0,
         itemsPerPage: pagination.itemsPerPage || itemsPerPage,
         hasNextPage: pagination.hasNextPage || false,
-        hasPrevPage: pagination.hasPrevPage || false
+        hasPrevPage: pagination.hasPrevPage || false,
+        total_planned_requests: pagination.total_planned_requests || 0,
+        total_completed_requests: pagination.total_completed_requests || 0,
       };
     }
     
@@ -64,8 +66,8 @@ export const useRequestListPage = () => {
     
     return {
       total: totalCount,
-      planned: requests.filter(r => r.status === 'planned' || r.status === 'approved').length,
-      completed: requests.filter(r => r.status === 'completed').length,
+      planned: paginationInfo?.total_planned_requests || 0,
+      completed: paginationInfo?.total_completed_requests || 0,
     };
   }, [requests, paginationInfo]);
 
