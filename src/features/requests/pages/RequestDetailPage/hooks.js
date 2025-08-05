@@ -1,14 +1,22 @@
 import { useRequest, useDeliveryForEdit } from '../../api';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const useRequestDetailPage = () => {
   const { id } = useParams();
   const { data: request, isLoading, error, refetch } = useRequest(id);
-  const { data: deliveryData } = useDeliveryForEdit(request?.status === 'completed' ? id : null);
+  const { data: deliveryData, refetch: refetchDeliveryData } = useDeliveryForEdit(id, request?.status === 'completed');
   const navigate = useNavigate();
 
   const deliveryDrivers = deliveryData?.data?.drivers || [];
+
+  // Manually refetch delivery data when request status becomes 'completed'
+  useEffect(() => {
+    if (request?.status === 'completed' && refetchDeliveryData) {
+      refetchDeliveryData();
+    }
+  }, [request?.status, refetchDeliveryData]);
 
   const performanceMetrics = request?.delivery ? {
     truckVariance: {
@@ -38,11 +46,19 @@ export const useRequestDetailPage = () => {
     navigate('/requests');
   };
 
+  const refreshData = () => {
+    refetch(); 
+    if (request?.status === 'completed' && refetchDeliveryData) {
+      refetchDeliveryData(); 
+    }
+  };
+
   return {
     request,
     isLoading,
     error,
     refetch,
+    refreshData,
     performanceMetrics,
     deliveryDrivers,
     permissions: {

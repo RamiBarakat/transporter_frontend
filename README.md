@@ -2,6 +2,9 @@
 
 A modern React-based frontend application for managing transportation requests, delivery logging, and driver performance tracking with AI-powered insights.
 
+While there's always room for improvement, I focused on delivering core functionality and value within the given timeframe.
+
+
 ## 📋 Table of Contents
 
 - [Setup Instructions](#setup-instructions)
@@ -34,24 +37,15 @@ A modern React-based frontend application for managing transportation requests, 
    yarn install
    ```
 
-3. **Environment Configuration**
-   ```bash
-   # Copy example environment file
-   cp .env.example .env
-   
-   # Configure your API endpoint
-   VITE_API_URL=http://localhost:5173/api
-   ```
-
-4. **Start the development server**
+3. **Start the development server**
    ```bash
    npm run dev
    # or
    yarn dev
    ```
 
-5. **Access the application**
-   Open [http://localhost:5173](http://localhost:5173) in your browser
+4. **Access the application**
+   Open [http://localhost:5173](http://localhost:5173) in your browser or the 
 
 ## ✨ Implemented Features
 
@@ -59,7 +53,7 @@ A modern React-based frontend application for managing transportation requests, 
 
 #### **Phase 1: Request Capture ✅**
 - **Request Creation**: Comprehensive form with origin, destination, pickup time, truck requirements
-- **Request Listing**: Paginated, searchable table with filters
+- **Request Listing**: Paginated, searchable table
 - **Request Details**: Timeline view with complete audit trail
 
 #### **Phase 2: Transporter Response Logging ✅**
@@ -94,7 +88,7 @@ A modern React-based frontend application for managing transportation requests, 
 
 This project was built using an **AI-native development methodology**. This approach resulted in:
 
-- **78% faster development** compared to traditional methods
+- **Faster development** compared to traditional methods
 - **80% reduction** in boilerplate code writing time
 - **semi-consistent code patterns** across 50+ components
 
@@ -122,7 +116,7 @@ This project was built using an **AI-native development methodology**. This appr
 - Validation logic implemented in seconds vs. hours
 - Caught edge cases that might have been missed
 
-x`
+
 #### 3. **Data Fetching & State Management**
 
 **AI Application:**
@@ -130,18 +124,10 @@ x`
 - Generated optimistic update logic
 - Created cache invalidation rules
 
-**Example - Query Key Strategy:**
-```javascript
-// AI helped design and implement:
-- Hierarchical query key structure
-- Automatic cache invalidation on mutations
-- Background refetching strategies
-- Pagination with proper cache management
-```
-
 **Impact:**
 - Reduction in API calls through intelligent caching
 - Less state management bugs in production
+- Really helps with capturing react query stuff, thought sometimes it doesn't provide the best solutions
 
 #### 4. **Performance Comparison Dashboard**
 
@@ -151,9 +137,6 @@ x`
 - Implemented trend analysis algorithms
 
 **Components AI Generated:**
-- Performance trend charts with anomaly highlighting
-- Deviation heatmaps with pattern recognition
-- Cost variance breakdowns with drill-down capability
 - AI (using gemini) insight panels with severity indicators
 
 **Impact:**
@@ -182,7 +165,7 @@ x`
 - **Type Safety**: Prevented runtime errors through proper typing
 - **Documentation**: Auto-generated JSDoc comments
 
-### AI Development Insights
+### AI Development Opinon
 
 #### **Strengths of AI-Assisted Development**
 ✅ **Exceptional for:**
@@ -199,10 +182,11 @@ x`
 - **Cross-File Dependencies**: Sometimes missed component relationships
 - **Creative UX Decisions**: Required human intuition for user experience and to stop making the UI too complex
 - **Domain-Specific Logic**: Needed human guidance for business rules
+- **React Query**: Can't solve all issues with react query
 
 #### **Mitigation Strategies**
 - **Clear Specifications**: Provided detailed requirements to AI
-- **Human Review**: Always validated AI-generated code
+- **Human Review**:  Validated AI-generated code
 - **Context Management**: Regularly reset context for optimal performance
 
 
@@ -259,7 +243,6 @@ src/
 │   │   ├── pages/         # Route pages
 │   │   ├── components/    # Feature components
 │   │   ├── api/           # API hooks (React Query)
-│   │   └── types/         # TypeScript definitions
 │   ├── drivers/           # Driver management
 │   ├── deliveries/        # Delivery tracking
 │   └── analytics/         # Performance analytics
@@ -281,6 +264,3 @@ src/
 
 ---
 
-**Built with ❤️ using AI-first development methodology**
-
-*This project demonstrates the power of AI-assisted development in creating production-ready applications with exceptional speed and quality.*

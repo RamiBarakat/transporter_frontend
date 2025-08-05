@@ -12,9 +12,7 @@ const CreateRequestPage = lazy(() => import('@/features/requests/pages/CreateReq
 const RequestDetailPage = lazy(() => import('@/features/requests/pages/RequestDetailPage'));
 const DeliveryLoggingPage = lazy(() => import('@/features/requests/pages/DeliveryLoggingPage'));
 const DeliveryEditPage = lazy(() => import('@/features/requests/pages/DeliveryEditPage'));
-const DeliveryListPage = lazy(() => import('@/features/deliveries/pages/DeliveryListPage'));
 const DriverListPage = lazy(() => import('@/features/drivers/pages/DriverListPage'));
-const AnalyticsPage = lazy(() => import('@/features/analytics/pages/AnalyticsPage'));
 
 // Wrapper component for lazy loaded pages
 const LazyWrapper = ({ children }) => (
@@ -98,26 +96,10 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: 'deliveries',
-        element: (
-          <LazyWrapper>
-            <DeliveryListPage />
-          </LazyWrapper>
-        ),
-      },
-      {
         path: 'drivers',
         element: (
           <LazyWrapper>
             <DriverListPage />
-          </LazyWrapper>
-        ),
-      },
-      {
-        path: 'analytics',
-        element: (
-          <LazyWrapper>
-            <AnalyticsPage />
           </LazyWrapper>
         ),
       },

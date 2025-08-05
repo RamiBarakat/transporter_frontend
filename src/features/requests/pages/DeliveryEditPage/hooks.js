@@ -43,7 +43,7 @@ export const useDeliveryEditPage = () => {
   
   // API hooks
   const { data: request, isLoading: isLoadingRequest, error: requestError } = useRequest(id);
-  const { data: deliveryData, isLoading: isLoadingDelivery, error: deliveryError } = useDeliveryForEdit(id);
+  const { data: deliveryData, isLoading: isLoadingDelivery, error: deliveryError } = useDeliveryForEdit(id, true);
   const updateDeliveryMutation = useUpdateDeliveryWithDrivers();
 
   // Extract data from API response
@@ -176,7 +176,7 @@ export const useDeliveryEditPage = () => {
 
       // Success - clear drivers and navigate
       clearSelectedDrivers();
-      navigate(`/requests/${id}`, { 
+      navigate(`/requests`, { 
         state: { message: 'Delivery updated successfully!' } 
       });
     } catch (error) {
@@ -226,6 +226,6 @@ export const useDeliveryEditPage = () => {
     calculateVariancePreview,
     
     // Navigation
-    goBack: () => navigate(`/requests/${id}`),
+    goBack: () => navigate(`/requests`),
   };
 };

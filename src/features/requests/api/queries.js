@@ -118,6 +118,10 @@ export const useLogDeliveryWithDrivers = () => {
       queryClient.invalidateQueries({ queryKey: ['requests', 'paginated-list'] });
       queryClient.invalidateQueries({ queryKey: ['request', requestId] });
       
+      // Invalidate all delivery-related queries for this request
+      queryClient.invalidateQueries({ queryKey: ['delivery', 'edit', requestId] });
+      queryClient.invalidateQueries({ queryKey: ['delivery'], exact: false });
+      
       // Invalidate driver queries to update their stats
       queryClient.invalidateQueries({ queryKey: ['drivers'] });
 
@@ -148,12 +152,12 @@ export const useUpdateDelivery = () => {
 };
 
 // Get delivery data for editing
-export const useDeliveryForEdit = (requestId) => {
+export const useDeliveryForEdit = (requestId, isCompleted = true) => {
   return useQuery({
     queryKey: ['delivery', 'edit', requestId],
     queryFn: () => deliveryApi.getDeliveryForEdit(requestId),
-    enabled: !!requestId,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    enabled: !!requestId && isCompleted,
+    staleTime: 1000 * 60 * 1, // Reduced to 1 minute for faster updates
   });
 };
 
@@ -169,7 +173,10 @@ export const useUpdateDeliveryWithDrivers = () => {
       // Invalidate relevant queries
       queryClient.invalidateQueries({ queryKey: ['requests', 'paginated-list'] });
       queryClient.invalidateQueries({ queryKey: ['request', requestId] });
+      
+      // Invalidate all delivery-related queries for this request
       queryClient.invalidateQueries({ queryKey: ['delivery', 'edit', requestId] });
+      queryClient.invalidateQueries({ queryKey: ['delivery'], exact: false });
       
       // Invalidate driver queries to update their stats
       queryClient.invalidateQueries({ queryKey: ['drivers'] });
@@ -201,6 +208,10 @@ export const useConfirmDeliveryCompletion = () => {
       // Invalidate request queries to reflect the confirmed status
       queryClient.invalidateQueries({ queryKey: ['requests', 'paginated-list'] });
       queryClient.invalidateQueries({ queryKey: ['request', requestId] });
+      
+      // Invalidate all delivery-related queries for this request
+      queryClient.invalidateQueries({ queryKey: ['delivery', 'edit', requestId] });
+      queryClient.invalidateQueries({ queryKey: ['delivery'], exact: false });
       
       addNotification({
         type: 'success',
