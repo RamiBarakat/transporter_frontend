@@ -4,6 +4,7 @@ A modern React-based frontend application for managing transportation requests, 
 
 While there's always room for improvement, I focused on delivering core functionality and value within the given timeframe.
 
+Most of the design choices are explained in the screenshots section.
 
 ## 📋 Table of Contents
 
@@ -198,24 +199,59 @@ This project was built using an **AI-native development methodology**. This appr
 ## 📸 Project Screenshots
 
 ### Dashboard Overview
-![Dashboard](./docs/screenshots/dashboard.png)
-*Executive dashboard with AI-generated insights and performance metrics*
+![Dashboard](./docs/screenshots/dashboard_1.png)
+*Executive dashboard with AI-generated insights and performance metrics and it shows the kpi card with trends based on the time period*
 
-### Performance Comparison
-![Performance Analysis](./docs/screenshots/performance-comparison.png)
-*AI-powered variance analysis with deviation alerts*
+![Dashboard](./docs/screenshots/dashboard_3.png)
+*This shows the AI enhanced insights based on data of drivers and ratings
+which are then used to prompt GEMINI LLM to get insights
+
+
+![Dashboard](./docs/screenshots/dashboard_4.png)
+*This table shows drivers score and trends based on a weighted average that can be modified*
+
 
 ### Request Management
-![Request List](./docs/screenshots/request-list.png)
-*Comprehensive request tracking with status indicators*
+![Request List](./docs/screenshots/requests_1.png)
+*This shows the Requests List with all the requests and the requests that are ready for logging, they are put in the same page for simplicity and also the status shows what is what (to simplify the user story)*
 
-### Delivery Logging
-![Delivery Logging](./docs/screenshots/delivery-logging.png)
-*Multi-driver rating system with dynamic criteria*
+![Create Request](./docs/screenshots/create_request.png)
+*Creating a request, estimated distance was created randomly if the cities are not hard coded, original plan was to include some API that has these predefined or the use of AI, but decieded to improve other higher priority features instead*
+
+![Edit Request](./docs/screenshots/edit_request.png)
+*Editing the request*
+
+![Delivery Logging](./docs/screenshots/log_delivery_1.png)
+*This shows the logging of a delivery while showing trends of deviation and showing the original data*
+
+![Delivery Logging](./docs/screenshots/log_delivery_2.png)
+*This shows the section where the user is provided an option to add an exising driver (in-house vs transport), or create a new transporter
+
+Decsion was made to not include creating in-house drivers from here because all in-house drivers should be previously logged. and to make it less harder to understand/work with.
+*
+
+![Delivery Logging](./docs/screenshots/add_drivers.png)
+*This shows adding the two different types of drivers while showing that we are logging their criteria differntly as requested*
 
 ### Driver Insights
-![Driver Performance](./docs/screenshots/driver-insights.png)
-*AI-generated driver performance insights and recommendations*
+![Driver Performance](./docs/screenshots/drivers_1.png)
+*This shows the drivers page, where it could be filtered by search or by driver type, and it shows some of their data*
+
+### Driver Insights
+![Driver Performance](./docs/screenshots/drivers_2.png)
+*In this photo, we showcase the dark theme mode, as well as, the modal that is designed to handle the driver's addition*
+
+### Driver Insights
+![Driver Performance](./docs/screenshots/drivers_3.png)
+*This modal is the view/edit modal that shows the driver and their data*
+
+### Driver Insights
+![Driver Performance](./docs/screenshots/drivers_4.png)
+*Here is what is interesting, we show the avg. of all the rating the drivers has, we also show a log of their ratings' history (with ratings of course)*
+
+### Driver Insights
+![Driver Performance](./docs/screenshots/drivers_5.png)
+*Here we showcase the AI insight for this specific driver based on their type, driver data, and ratings (also using GEMINI for prompting)*
 
 ## 🛠 Tech Stack
 
