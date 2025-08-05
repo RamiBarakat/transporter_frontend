@@ -139,7 +139,6 @@ const useDriverListPage = () => {
   }, [allDrivers, searchTerm, typeFilter]);
 
   const handleViewDriver = (driver) => {
-    console.log('Selected driver for viewing:', driver);
     setSelectedDriver(driver);
     setShowDetailModal(true);
   };
@@ -219,7 +218,6 @@ const useDriverListPage = () => {
         ratingsData: ratings || []
       });
       
-      console.log('Insights generation result:', result);
       
       // Force update the selectedDriver state to reflect changes
       setSelectedDriver(prev => prev ? {

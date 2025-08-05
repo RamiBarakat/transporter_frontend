@@ -124,7 +124,6 @@ export const DriverForm = ({ onSaveDriver, onCancel, className = "" }) => {
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          console.log('Form submission prevented');
         }} 
         className="space-y-6" 
         noValidate
@@ -216,7 +215,7 @@ export const DriverForm = ({ onSaveDriver, onCancel, className = "" }) => {
             onClick={async (e) => {
               e.preventDefault();
               e.stopPropagation();
-              console.log('Submit button clicked');
+              
               
               // Get form data manually
               const formData = new FormData(e.target.closest('form'));

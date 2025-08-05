@@ -140,11 +140,9 @@ export const useGenerateDriverInsights = () => {
   return useMutation({
     mutationFn: ({ driverId, ratingsData }) => driversApi.generateDriverInsights(driverId, ratingsData),
     onSuccess: (response, { driverId }) => {
-      console.log('AI Insights Generated Response:', response);
       
       // Extract insights from response
       const insights = response.aiInsights || response.data?.aiInsights || response.data || response;
-      console.log('Extracted insights:', insights);
 
       //bug here
       const updatedDriverData = queryClient.setQueryData(['drivers', driverId], (oldData) => {
@@ -154,7 +152,6 @@ export const useGenerateDriverInsights = () => {
           aiInsights: insights,
           aiInsightsUpdatedAt: new Date().toISOString(),
         };
-        console.log('Updated driver cache:', updatedDriver);
         return updatedDriver;
       });
 
@@ -172,7 +169,7 @@ export const useGenerateDriverInsights = () => {
               : driver
           )
         };
-        console.log('Updated drivers list cache:', updatedList);
+        
         return updatedList;
       });
 
